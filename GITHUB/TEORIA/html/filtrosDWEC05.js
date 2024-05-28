@@ -7,14 +7,15 @@ async function loadAndProcessExternalContent() {
         divTemp.innerHTML = text;
         // Eliminar todo el contenido de las etiquetas img y script
         const imgs = divTemp.getElementsByTagName('img');
-        const as = divTemp.getElementsByTagName('a');
+        const enlaces = divTemp.getElementsByTagName('a');
+       
         const scripts = divTemp.getElementsByTagName('script');
         for (let img of imgs) {
             while (img.attributes.length > 0) {
                 img.removeAttribute(img.attributes[0].name);
             }
         }
-        for (let a of as) {
+        for (let a of enlaces) {
             while (a.attributes.length > 0) {
                 a.removeAttribute(a.attributes[0].name);
             }

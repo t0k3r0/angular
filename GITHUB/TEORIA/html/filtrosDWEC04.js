@@ -7,14 +7,25 @@ async function loadAndProcessExternalContent() {
         divTemp.innerHTML = text;
         // Eliminar todo el contenido de las etiquetas img y script
         const imgs = divTemp.getElementsByTagName('img');
-        const as = divTemp.getElementsByTagName('a');
+        const enlaces = divTemp.getElementsByTagName('a');
+        const listaEnlaces = document.createElement('ul');
+        for (let enlace of enlaces) {
+            const elementoLista = document.createElement('li');
+            const enlaceClicable = document.createElement('a');
+            enlaceClicable.href = enlace.href;
+            enlaceClicable.textContent = `${enlace.title}`;
+            elementoLista.appendChild(enlaceClicable);
+            listaEnlaces.appendChild(elementoLista);
+        }
+        divExterno.appendChild(listaEnlaces);
+
         const scripts = divTemp.getElementsByTagName('script');
         for (let img of imgs) {
             while (img.attributes.length > 0) {
                 img.removeAttribute(img.attributes[0].name);
             }
         }
-        for (let a of as) {
+        for (let a of enlaces) {
             while (a.attributes.length > 0) {
                 a.removeAttribute(a.attributes[0].name);
             }
@@ -58,6 +69,7 @@ async function loadAndProcessExternalContent() {
             listaPalabras.appendChild(elementoLista);
         });
         divExterno.appendChild(listaPalabras);
+
         const elementos = divTemp.querySelectorAll('pre, tr, h1, h2, h3, p, li, em');
         const contenidoCopiado = new Set();
         let continuarCopiando = true;
